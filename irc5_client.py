@@ -14,19 +14,19 @@ class tcp_client(object):
         print('TCP client initialized!')
 
     def talker(self, msg):
-        # print("TCP client received:", msg)
-        # return "Success!"
+        print("TCP client received:", msg)
+        return "Success!"
 
-        self.socket.sendall(bytes(msg, 'UTF-8'))
-        data = self.socket.recv(1024)
-        time.sleep(1)
-        print(f"TCP received {data!r}")
-        if data == "02":
-            print("Error: The Robot is busy with drawing")
-            return "Failed!"
-        elif data == "00":
-            print("Success!")
-            return "Success!"
+        # self.socket.sendall(bytes(msg, 'UTF-8'))
+        # data = self.socket.recv(1024)
+        # time.sleep(1)
+        # print(f"TCP received {data!r}")
+        # if data == "02":
+        #     print("Error: The Robot is busy with drawing")
+        #     return "Failed!"
+        # elif data == "00":
+        #     print("Success!")
+        #     return "Success!"
 
 
 
