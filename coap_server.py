@@ -10,12 +10,6 @@ class AdvancedResource(Resource):
         self.payload = "Advanced resource"
         self.tcp_client = tcp
 
-    def render_GET_advanced(self, request, response):
-        response.payload = self.payload
-        response.max_age = 20
-        response.code = defines.Codes.CONTENT.number
-        return self, response
-
     def render_POST_advanced(self, request, response):
         self.payload = request.payload
         from coapthon.messages.response import Response
@@ -26,19 +20,6 @@ class AdvancedResource(Resource):
         response.code = defines.Codes.VALID.number
         return self, response
 
-    def render_PUT_advanced(self, request, response):
-        self.payload = request.payload
-        from coapthon.messages.response import Response
-        assert(isinstance(response, Response))
-        response.payload = "Response changed through PUT"
-        response.code = defines.Codes.CHANGED.number
-        return self, response
-
-    def render_DELETE_advanced(self, request, response):
-        response.payload = "Response deleted"
-        response.code = defines.Codes.DELETED.number
-        return True, response
-
 
 class BasicResource(Resource):
     def __init__(self, tcp=None, name="BasicResource", coap_server=None):
@@ -47,21 +28,11 @@ class BasicResource(Resource):
         self.payload = "Basic Resource"
         self.tcp_client = tcp
 
-    def render_GET(self, request):
-        return self
-
-    def render_PUT(self, request):
-        self.payload = request.payload
-        return self
-
     def render_POST(self, request):
         msg = request.payload
         data = self.tcp_client.talker(msg)
         self.payload = data
         return self
-
-    def render_DELETE(self, request):
-        return True
 
 
 class CoAPServer(CoAP):
